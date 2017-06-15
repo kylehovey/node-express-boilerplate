@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title=title
+    link(rel='stylesheet', href='/style/main.css')
+    link(rel='stylesheet', href='/style/external/bootstrap.min.css')
+  body
+    block content
+    block externalScripts
+      script(src="/js/external/jquery.min.js")
+    block components
+      script(src="/js/components/api/api.js")
+      script(src="/js/components/loader/loader.js")
+      script(src="/js/components/list/list.js")
+      script(src="/js/components/scanResults/scanResults.js")
+    block userScripts
