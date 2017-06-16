@@ -20,7 +20,7 @@ For client-side JavaScript, edit files in the `/src/js/` directory. Typically, f
 
 The `main.js` file has a function enclosed in a jQuery constructor so that it fires on page load. This file instantiates the `App` class as a global variable (the only one) and adds any additional listeners to the page that can now reference the app object. Optionally, the app can be a locally declared variable and can be passed to the listeners by closure. For development, though, it is useful to have the app object stored in the global context so that it can be accessed via the developer console.
 
-These files `main.js` and `app.js` are loaded in the view for each page by using the `append userScripts` block in the relevant pug file located in `/views`. Make sure to include scripts using the `/public/js/` directory path and not the `/src/js/` as files are compiled from the latter to the former using Gulp.
+These files `main.js` and `app.js` are loaded in the view for each page by using the `append userScripts` block in the relevant pug file located in `/views`. Make sure to include scripts using the `/public/js/` (`/js/` as seen by the client) directory path and not the `/src/js/` as files are compiled from the latter to the former using Gulp.
 
 # Components
 
