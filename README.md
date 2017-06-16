@@ -28,7 +28,7 @@ Components are abstract views/logic that typically deal with user interaction an
 
 # Compiling
 
-After editing JavaScript files in `/src/js/`, compile the files by running `gulp` in the repository root. The included `gulpfile.js` will use globbing to search for any files added and compile them isomorphically to the `/public/js/` directory.
+After editing JavaScript files in `/src/js/`, compile the files by running `gulp` in the repository root. The included `gulpfile.js` will use globbing to search for any files added and compile them isomorphically (with respect to directory/file structure) to the `/public/js/` directory.
 
 # Running
 
