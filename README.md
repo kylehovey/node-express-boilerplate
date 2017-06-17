@@ -9,6 +9,7 @@ This setup may very well not be for you, but this is how I have structured my No
 ## Command Line Dependencies:
 
 * Gulp
+* Node/NVM
 
 ## Included Client-Side Libraries:
 
