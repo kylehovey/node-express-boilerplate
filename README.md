@@ -10,6 +10,12 @@ This setup may very well not be for you, but this is how I have structured my No
 
 * Gulp
 
+## Included Client-Side Libraries:
+
+* [jQuery 3.2.1](https://jquery.com/)
+* [Bootstrap 3.3.7](https://getbootstrap.com/)
+* [Sweet Alert 2 v6.6.5](https://limonte.github.io/sweetalert2/)
+
 ## Getting Started
 
 Clone this repository, `cd` into the repo directory then run `npm install`.
