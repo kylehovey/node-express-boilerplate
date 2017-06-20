@@ -1,3 +1,7 @@
 "use strict";
 
-$(function () {});
+$(function () {
+  // Create the application
+  window.app = new App();
+});
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4L21haW4uanMiXSwibmFtZXMiOlsiJCIsIndpbmRvdyIsImFwcCIsIkFwcCJdLCJtYXBwaW5ncyI6Ijs7QUFBQUEsRUFBRSxZQUFNO0FBQ047QUFDQUMsU0FBT0MsR0FBUCxHQUFhLElBQUlDLEdBQUosRUFBYjtBQUNELENBSEQiLCJmaWxlIjoiaW5kZXgvbWFpbi5qcyIsInNvdXJjZXNDb250ZW50IjpbIiQoKCkgPT4ge1xuICAvLyBDcmVhdGUgdGhlIGFwcGxpY2F0aW9uXG4gIHdpbmRvdy5hcHAgPSBuZXcgQXBwKCk7XG59KTtcbiJdfQ==
