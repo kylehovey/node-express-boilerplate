@@ -1,3 +1,6 @@
+# Compiled JS
+public/js/app/*
+
 # Logs
 logs
 *.log

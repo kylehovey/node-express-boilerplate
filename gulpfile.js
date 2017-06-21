@@ -10,5 +10,5 @@ gulp.task("default", function() {
       presets : "latest"
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./public/js/"));
+    .pipe(gulp.dest("./public/js/app/"));
 });
