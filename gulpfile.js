@@ -6,9 +6,7 @@ const sourcemaps = require('gulp-sourcemaps');
 gulp.task("default", function() {
   return gulp.src("./src/js/**/*.js")
     .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets : "latest"
-    }))
+    .pipe(babel())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("./public/js/app/"));
 });
