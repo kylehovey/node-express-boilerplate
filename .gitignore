@@ -1,3 +1,7 @@
+# Vim Swap Files
+*.swp
+*.swo
+
 # Compiled JS
 public/js/app/*
 
