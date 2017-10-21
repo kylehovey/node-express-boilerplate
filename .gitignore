@@ -5,6 +5,9 @@
 # Compiled JS
 public/js/app/*
 
+# Compiled SASS
+public/js/style/*.css
+
 # Logs
 logs
 *.log
