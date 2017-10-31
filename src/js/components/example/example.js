@@ -1,4 +1,1 @@
-class Example {
-  constructor() {
-  }
-}
+class Example { }

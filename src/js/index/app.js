@@ -1,3 +1,1 @@
-class App {
-  constructor() {}
-}
+class App { }

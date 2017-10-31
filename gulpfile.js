@@ -1,5 +1,6 @@
 // Dependencies
 const changed = require("gulp-changed");
+const changedInPlace = require("gulp-changed-in-place");
 const sourcemaps = require("gulp-sourcemaps");
 const gulp = require("gulp");
 const babel = require("gulp-babel");
@@ -56,6 +57,7 @@ function compileCSS(source, destination) {
  */
 function lintClient(source) {
   return () => gulp.src(source)
+    .pipe(changedInPlace())
     .pipe(eslint({ config : "./src/.eslintrc.client.json" }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
@@ -69,15 +71,16 @@ function lintClient(source) {
  */
 function lintNode(source) {
   return () => gulp.src(source)
+    .pipe(changedInPlace())
     .pipe(eslint({ config : "./.eslintrc.client.json" }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 }
 
 // Find enabled tasks
-let enabledTasks = Object
+const enabledTasks = Object
   .entries(compileTasks)
-  .map(([type, tasks]) => tasks
+  .map(([ type, tasks ]) => tasks
     .filter(task => task.enabled)
     .map(task => 
       Object.assign(
