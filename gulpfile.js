@@ -87,7 +87,7 @@ let enabledTasks = Object
       )
     )
   )
-  .reduce((acc, arr) => acc.concat(arr));
+  .reduce((acc, arr) => acc.concat(arr), []);
 
 
 /* ===== GULP TASKS BELOW THIS LINE ===== */

@@ -25,7 +25,7 @@
     ],
     "lintNode" : [
       {
-        "name" : "app-ESLint",
+        "name" : "node-ESLint",
         "src" : [
           "./**/*.js",
           "!./node_modules/**",
