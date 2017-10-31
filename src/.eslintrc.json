@@ -1,7 +1,8 @@
 {
     "env": {
-        "node" : true,
-        "es6": true
+        "browser": true,
+        "es6": true,
+        "jquery" : true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -20,6 +21,8 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-unused-vars" : "off",
+        "no-undef" : "off"
     }
 }

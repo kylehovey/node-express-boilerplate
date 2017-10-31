@@ -1,18 +1,21 @@
 // Dependencies
-const changed = require('gulp-changed');
-const sourcemaps = require('gulp-sourcemaps');
-const gulp = require('gulp');
-const babel = require('gulp-babel');
-const sass = require('gulp-sass');
+const changed = require("gulp-changed");
+const sourcemaps = require("gulp-sourcemaps");
+const gulp = require("gulp");
+const babel = require("gulp-babel");
+const sass = require("gulp-sass");
+const eslint = require("gulp-eslint");
 
 // Configuration
-const compileTasks = require('config.json')('./config/gulp.json').tasks;
+const compileTasks = require("config.json")("./config/gulp.json").tasks;
 
 // Assign handlers
 // (function names are the same name as the handler keys)
 const handlers = {
   compileJS,
-  compileCSS
+  compileCSS,
+  lintClient,
+  lintNode
 };
 
 /**
@@ -41,8 +44,34 @@ function compileJS(source, destination) {
 function compileCSS(source, destination) {
   return () => gulp.src(source)
     .pipe(changed(destination))
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(destination))
+    .pipe(sass().on("error", sass.logError))
+    .pipe(gulp.dest(destination));
+}
+
+/**
+ * Run ESLint (Client)
+ * @param {String} source Source of files (supports globbing)
+ * @param {String} destination Destination of files (supports globbing)
+ * @return {Function}
+ */
+function lintClient(source) {
+  return () => gulp.src(source)
+    .pipe(eslint({ config : "./src/.eslintrc.client.json" }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+}
+
+/**
+ * Run ESLint (Node)
+ * @param {String} source Source of files (supports globbing)
+ * @param {String} destination Destination of files (supports globbing)
+ * @return {Function}
+ */
+function lintNode(source) {
+  return () => gulp.src(source)
+    .pipe(eslint({ config : "./.eslintrc.client.json" }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 }
 
 // Find enabled tasks
@@ -71,4 +100,4 @@ enabledTasks
 gulp.task(
   "default",
   enabledTasks.map(task => task.name)
-)
+);

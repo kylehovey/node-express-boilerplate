@@ -15,6 +15,25 @@
         "dest" : "./public/style",
         "enabled" : true
       }
+    ],
+    "lintClient" : [
+      {
+        "name" : "app-ESLint",
+        "src" : "./src/**/*.js",
+        "enabled" : true
+      }
+    ],
+    "lintNode" : [
+      {
+        "name" : "app-ESLint",
+        "src" : [
+          "./**/*.js",
+          "!./node_modules/**",
+          "!./public/**",
+          "!./src/**/*.js"
+        ],
+        "enabled" : true
+      }
     ]
   }
 }
