@@ -101,25 +101,37 @@ const enabledTasks = Object
   .entries(compileTasks)
   .map(([ type, tasks ]) => tasks
     .filter(task => task.enabled)
-    .map(task => 
+    .map(task =>
       Object.assign(
-        new Object,
-        { handler : handlers[type](task.src, task.dest) }, 
+        {
+          handler : handlers[type](task.src, task.dest),
+          type
+        },
         task
       )
     )
   )
   .reduce((acc, arr) => acc.concat(arr), []);
 
-
 /* ===== GULP TASKS BELOW THIS LINE ===== */
 
 // Compile all tasks into gulp
-enabledTasks
-  .forEach(task => gulp.task(task.name, task.handler));
+enabledTasks.forEach(task => gulp.task(task.name, task.handler));
 
 // Make the default task run our compiled jobs
 gulp.task(
   "default",
   enabledTasks.map(task => task.name)
 );
+
+// Create a task for each type so that they may be run individually
+Object
+  .keys(compileTasks)
+  .forEach(type => {
+    gulp.task(
+      type,
+      enabledTasks
+        .filter(task =>task.type === type)
+        .map(task => task.name)
+    );
+  });
