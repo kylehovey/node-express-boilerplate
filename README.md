@@ -16,6 +16,7 @@ This setup may very well not be for you, but this is how I have structured my No
 * [jQuery 3.2.1](https://jquery.com/)
 * [Bootstrap 3.3.7](https://getbootstrap.com/)
 * [Sweet Alert 2 v6.6.5](https://limonte.github.io/sweetalert2/)
+* [Lodash 4](https://lodash.com/)
 
 ## Getting Started
 
