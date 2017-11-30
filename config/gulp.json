@@ -3,8 +3,8 @@
     "compileJS" : [
       {
         "name" : "app-JS",
-        "src" : "./src/js/**/*.js",
-        "dest" : "./public/js/app",
+        "src" : "./src/js/index/main.js",
+        "dest" : "./public/js/app/index",
         "enabled" : true
       }
     ],
@@ -30,8 +30,17 @@
           "./**/*.js",
           "!./node_modules/**",
           "!./public/**",
-          "!./src/**/*.js"
+          "!./src/**/*.js",
+          "!./docs/**"
         ],
+        "enabled" : true
+      }
+    ],
+    "document" : [
+      {
+        "name" : "document-client",
+        "src" : "src/js/",
+        "dest" : "docs",
         "enabled" : true
       }
     ]

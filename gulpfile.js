@@ -1,11 +1,13 @@
 // Dependencies
-const changed = require("gulp-changed");
-const changedInPlace = require("gulp-changed-in-place");
-const sourcemaps = require("gulp-sourcemaps");
 const gulp = require("gulp");
-const babel = require("gulp-babel");
 const sass = require("gulp-sass");
 const eslint = require("gulp-eslint");
+const webpack = require("webpack-stream");
+const changed = require("gulp-changed");
+const esdoc = require("gulp-esdoc");
+
+// Webpack plugins
+const Uglify = require("uglifyjs-webpack-plugin");
 
 // Configuration
 const compileTasks = require("config.json")("./config/gulp.json").tasks;
@@ -13,6 +15,7 @@ const compileTasks = require("config.json")("./config/gulp.json").tasks;
 // Assign handlers
 // (function names are the same name as the handler keys)
 const handlers = {
+  document,
   compileJS,
   compileCSS,
   lintClient,
@@ -21,18 +24,27 @@ const handlers = {
 
 /**
  * Create the JS compile chain for a source and destination
- * @param {String} source Source of files (supports globbing)
+ * @param {String[]} source Source of files (supports globbing)
  * @param {String} destination Destination of files (supports globbing)
  * @return {Function}
  */
 function compileJS(source, destination) {
   // Return the pipeline
   return () => gulp.src(source)
-    .pipe(changed(destination))
-    .pipe(sourcemaps.init())
-    /* Babel config is in .babelrc */
-    .pipe(babel())
-    .pipe(sourcemaps.write())
+    .pipe(webpack({
+      output : { filename : "bundle.js" },
+      devtool : "source-map",
+      plugins : [ new Uglify({ parallel : true }) ],
+      module : {
+        rules : [
+          {
+            test : /\.js$/,
+            exclude : /node_modules/,
+            use : { loader : "babel-loader", options : { presets : [ "env" ] } }
+          }
+        ]
+      }
+    }))
     .pipe(gulp.dest(destination));
 }
 
@@ -57,7 +69,6 @@ function compileCSS(source, destination) {
  */
 function lintClient(source) {
   return () => gulp.src(source)
-    .pipe(changedInPlace())
     .pipe(eslint({ config : "./src/.eslintrc.client.json" }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
@@ -66,15 +77,23 @@ function lintClient(source) {
 /**
  * Run ESLint (Node)
  * @param {String} source Source of files (supports globbing)
- * @param {String} destination Destination of files (supports globbing)
  * @return {Function}
  */
 function lintNode(source) {
   return () => gulp.src(source)
-    .pipe(changedInPlace())
     .pipe(eslint({ config : "./.eslintrc.client.json" }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
+}
+
+/**
+ * Create documentation
+ * @param {String} source Source of files (supports globbing)
+ * @param {String} destination Destination of files (supports globbing)
+ * @return {Function}
+ */
+function document(source, destination) {
+  return () => gulp.src(source).pipe(esdoc({ destination }));
 }
 
 // Find enabled tasks

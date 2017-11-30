@@ -1,12 +1,15 @@
+# Documentation
+docs/**
+
 # Vim Swap Files
 *.swp
 *.swo
 
 # Compiled JS
-public/js/app/*
+public/js/**/*.js
 
 # Compiled SASS
-public/js/style/*.css
+public/js/**/*.css
 
 # Logs
 logs
