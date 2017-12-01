@@ -26,25 +26,35 @@ const handlers = {
  * Create the JS compile chain for a source and destination
  * @param {String[]} source Source of files (supports globbing)
  * @param {String} destination Destination of files (supports globbing)
+ * @param {Object} opts Options for compilation
+ * @param {Boolean} opts.production True if in production (Babel/Minify)
  * @return {Function}
  */
-function compileJS(source, destination) {
+function compileJS(source, destination, opts) {
+  // Production compilation options
+  const productionOpts = {
+    plugins : [ new Uglify({ parallel : true }) ],
+    module : {
+      rules : [
+        {
+          test : /\.js$/,
+          exclude : /node_modules/,
+          use : { loader : "babel-loader", options : { presets : [ "env" ] } }
+        }
+      ]
+    }
+  };
+
+  // Aggregate full options for compilation
+  const fullOps = Object.assign({
+    watch : true,
+    output : { filename : "bundle.js" },
+    devtool : "source-map",
+  }, opts.production ? productionOpts : { });
+
   // Return the pipeline
   return () => gulp.src(source)
-    .pipe(webpack({
-      output : { filename : "bundle.js" },
-      devtool : "source-map",
-      plugins : [ new Uglify({ parallel : true }) ],
-      module : {
-        rules : [
-          {
-            test : /\.js$/,
-            exclude : /node_modules/,
-            use : { loader : "babel-loader", options : { presets : [ "env" ] } }
-          }
-        ]
-      }
-    }))
+    .pipe(webpack(fullOps))
     .pipe(gulp.dest(destination));
 }
 
@@ -104,7 +114,7 @@ const enabledTasks = Object
     .map(task =>
       Object.assign(
         {
-          handler : handlers[type](task.src, task.dest),
+          handler : handlers[type](task.src, task.dest, task.opts),
           type
         },
         task

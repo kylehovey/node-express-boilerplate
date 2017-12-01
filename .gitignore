@@ -6,7 +6,7 @@ docs/**
 *.swo
 
 # Compiled JS
-public/js/**/*.js
+public/js/**
 
 # Compiled SASS
 public/js/**/*.css

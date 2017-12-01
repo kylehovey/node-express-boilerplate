@@ -3,6 +3,7 @@
     "compileJS" : [
       {
         "name" : "app-JS",
+        "opts" : { "production" : false },
         "src" : "./src/js/index/main.js",
         "dest" : "./public/js/app/index",
         "enabled" : true
@@ -11,6 +12,7 @@
     "compileCSS" : [
       {
         "name" : "app-CSS",
+        "opts" : { },
         "src" : "./src/sass/**/*.scss",
         "dest" : "./public/style",
         "enabled" : true
@@ -19,6 +21,7 @@
     "lintClient" : [
       {
         "name" : "app-ESLint",
+        "opts" : { },
         "src" : "./src/**/*.js",
         "enabled" : true
       }
@@ -26,6 +29,7 @@
     "lintNode" : [
       {
         "name" : "node-ESLint",
+        "opts" : { },
         "src" : [
           "./**/*.js",
           "!./node_modules/**",
@@ -39,6 +43,7 @@
     "document" : [
       {
         "name" : "document-client",
+        "opts" : { },
         "src" : "src/js/",
         "dest" : "docs",
         "enabled" : true
