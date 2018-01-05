@@ -10,7 +10,7 @@ const esdoc = require("gulp-esdoc");
 const Uglify = require("uglifyjs-webpack-plugin");
 
 // Configuration
-const compileTasks = require("config.json")("./config/gulp.json").tasks;
+const compileTasks = require("./config/gulp.json").tasks;
 
 // Assign handlers
 // (function names are the same name as the handler keys)
@@ -47,7 +47,7 @@ function compileJS(source, destination, opts) {
 
   // Aggregate full options for compilation
   const fullOps = Object.assign({
-    watch : true,
+    watch : false,
     output : { filename : "bundle.js" },
     devtool : "source-map",
   }, opts.production ? productionOpts : { });
