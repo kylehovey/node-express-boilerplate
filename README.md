@@ -9,10 +9,8 @@ A Node.js boilerplate to get you off the ground and running.
 
 ## Included Client-Side Libraries:
 
-* [jQuery 3.2.1](https://jquery.com/)
+* [jQuery](https://jquery.com/)
 * [Bootstrap 3.3.7](https://getbootstrap.com/)
-* [Sweet Alert 2 v6.6.5](https://limonte.github.io/sweetalert2/)
-* [Lodash 4](https://lodash.com/)
 
 ## Getting Started
 
@@ -139,6 +137,10 @@ The `main.js` file located in `src/js/index/` is an entry point for all applicat
 # Compiling
 
 By default, the `gulp` task `compileJS` is set up to use webpack to convert `main.js` into a bundle containing its dependencies, which outputs in the corresponding location in `public/js/app`. The `opts` object for this task in `config/gulp.json` will not transpile ES6/ES7 and will not minify by default. To enable these features for a production build, just set the `production` flag in the aformentioned `opts` object to true.
+
+# Testing
+
+Test can be run using `gulp test`, which will search for any files in the `src` directory that match `*.test.js`. This uses `jest`.
 
 # Components
 
