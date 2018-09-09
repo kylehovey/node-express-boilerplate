@@ -1,15 +1,21 @@
+# Yarn Errors
+yarn-error.log
+
 # Documentation
 docs/**
+
+# Coverage Report
+coverage/**
 
 # Vim Swap Files
 *.swp
 *.swo
 
 # Compiled JS
-public/js/**
+public/js/app/**
 
 # Compiled SASS
-public/js/**/*.css
+public/style/*.css
 
 # Logs
 logs

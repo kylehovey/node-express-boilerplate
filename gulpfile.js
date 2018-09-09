@@ -2,15 +2,17 @@
 const gulp = require("gulp");
 const sass = require("gulp-sass");
 const eslint = require("gulp-eslint");
-const webpack = require("webpack-stream");
+const webpackStream = require("webpack-stream");
+const webpack = webpackStream.webpack;
 const changed = require("gulp-changed");
 const esdoc = require("gulp-esdoc");
+const { default : jest } = require("gulp-jest");
 
 // Webpack plugins
 const Uglify = require("uglifyjs-webpack-plugin");
 
 // Configuration
-const compileTasks = require("config.json")("./config/gulp.json").tasks;
+const { tasks : compileTasks } = require("./config/gulp.json");
 
 // Assign handlers
 // (function names are the same name as the handler keys)
@@ -19,7 +21,8 @@ const handlers = {
   compileJS,
   compileCSS,
   lintClient,
-  lintNode
+  lintNode,
+  test
 };
 
 /**
@@ -50,11 +53,17 @@ function compileJS(source, destination, opts) {
     watch : true,
     output : { filename : "bundle.js" },
     devtool : "source-map",
+    plugins : [ ]
   }, opts.production ? productionOpts : { });
+
+  // Add module provide plugins
+  Object.entries(opts.provide)
+    .map(([ key, val ]) => new webpack.ProvidePlugin({ [key] : val }))
+    .forEach(providePlugin => fullOps.plugins.push(providePlugin));
 
   // Return the pipeline
   return () => gulp.src(source)
-    .pipe(webpack(fullOps))
+    .pipe(webpackStream(fullOps))
     .pipe(gulp.dest(destination));
 }
 
@@ -100,10 +109,40 @@ function lintNode(source) {
  * Create documentation
  * @param {String} source Source of files (supports globbing)
  * @param {String} destination Destination of files (supports globbing)
+ * @param {Object} opts Options for ESDoc (see esdoc.org for more)
  * @return {Function}
  */
-function document(source, destination) {
-  return () => gulp.src(source).pipe(esdoc({ destination }));
+function document(source, destination, opts) {
+  return () => gulp.src(source)
+    .pipe(esdoc(Object.assign({ destination }, opts)));
+}
+
+/**
+ * Create a pipeline for testing JS (no UI)
+ * @param {String[]} source Source of files (supports globbing)
+ * @param {String} destination Destination of files (supports globbing)
+ * @param {Object} opts Options for ESDoc (see esdoc.org for more)
+ * @return {Function}
+ */
+function test(source, destination, opts) {
+  const { coverageReport } = opts;
+
+  const _opts = Object.assign({
+    scriptPreprocessor : "<rootDir>/node_modules/babel-jest",
+    preprocessorIgnorePatterns : [
+      "<rootDir>/public/",
+      "<rootDir>/node_modules/",
+      "<rootDir>/app_modules/"
+    ],
+    setupTestFrameworkScriptFile : `<rootDir>/${source}/.setupTest.js`,
+    automock : false
+  }, coverageReport ? {
+    collectCoverage : true,
+    collectCoverageFrom : [ "<rootDir>/src/js/types/**/*.js" ],
+    coverageDirectory : "<rootDir>/coverage",
+  } : {}); 
+
+  return () => gulp.src(source).pipe(jest(_opts));
 }
 
 // Find enabled tasks

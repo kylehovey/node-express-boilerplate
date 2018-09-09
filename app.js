@@ -5,9 +5,10 @@ const path = require("path");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const { siteConfig } = require("./config/config.json");
 
 // Routes
-const index = require("./app_modules/express/routes/index");
+const index = require("./app_modules/express/routes/index")(siteConfig);
 const api = require("./app_modules/express/routes/api");
 
 // Root middlewares

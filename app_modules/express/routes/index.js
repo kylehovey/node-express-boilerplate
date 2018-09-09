@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 /* GET home page. */
-router.get("/", (req, res, next) => {
-  res.render("index", { title : "Node Boilerplate" });
+module.exports = ({ title }) => {
+  router.get("/", (req, res, next) => {
+    res.render("index", { title });
 
-  next();
-});
+    next();
+  });
 
-module.exports = router;
+  return router;
+};
