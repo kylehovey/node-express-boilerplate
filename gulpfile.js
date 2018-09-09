@@ -50,7 +50,7 @@ function compileJS(source, destination, opts) {
 
   // Aggregate full options for compilation
   const fullOps = Object.assign({
-    watch : true,
+    watch : false,
     output : { filename : "bundle.js" },
     devtool : "source-map",
     plugins : [ ]
