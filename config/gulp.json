@@ -5,6 +5,7 @@
         "name" : "app-JS",
         "opts" : {
           "production" : false,
+          "watch" : true,
           "provide" : {
             "$" : "jquery",
             "jQuery" : "jquery"

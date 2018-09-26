@@ -54,7 +54,7 @@ function compileJS(source, destination, opts) {
     output : { filename : "bundle.js" },
     devtool : "source-map",
     plugins : [ ]
-  }, opts.production ? productionOpts : { });
+  }, opts.production ? productionOpts : { }, { watch : opts.watch });
 
   // Add module provide plugins
   Object.entries(opts.provide)
